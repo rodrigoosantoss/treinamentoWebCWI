@@ -1,0 +1,58 @@
+package utils;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.UnreachableBrowserException;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.sql.SQLOutput;
+import java.util.concurrent.TimeUnit;
+
+public class Browser {
+    public static WebDriver driver;
+    public static WebDriverWait wait;
+
+    public static WebDriver getCurrentDriver (){
+        //cria-se o IF de verificação para ver se é nulo ou não
+        //cria uma unica instancia, se não existe um drive
+        if (driver == null){
+            //try Cactch caso não
+
+            try {
+                driver = new ChromeDriver();
+                // WAIT controla as esperas, maximo em 30, default ele espera 5 segundos
+                wait = new WebDriverWait(driver, 30);
+                maximizeBrowser();
+                setPageLoadTimeout();
+
+            } catch (Exception e){
+                System.out.println("Error: "+ e.toString());
+            }
+        }
+        return driver;
+    }
+    //unidade de tempo que utilizaremos não quer utilizar o default do sistema
+    private static void setPageLoadTimeout() {
+        driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+    }
+
+    // cria privado por questão de seguranca já que ele criou automático
+    private static void maximizeBrowser() {
+        driver.manage().window().maximize();
+    }
+    //função estatica sem parametro
+    public static void loadUrl (String url){
+        //get é do tipo webdrive dentro do pacote WebDrive
+        getCurrentDriver().get(url);
+    }
+
+    public static void close(){
+        try {
+            getCurrentDriver().quit();
+            driver = null;
+        } catch (UnreachableBrowserException e){
+        }
+    }
+}
+
+
