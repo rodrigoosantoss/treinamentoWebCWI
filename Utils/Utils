@@ -1,0 +1,20 @@
+package utils;
+
+public class Utils {
+    public static String webDriverLocation() {
+    return "driver/chromedriver.exe"; //retorno string chromedriver
+
+        //criar uma função
+        //estatica do tipo string
+        //retorne essa
+        // url: http://automationpractice.com
+
+    }
+
+    public static String getBaseUrl(){
+        return "http://automationpractice.com";
+    }
+
+}
+
+
