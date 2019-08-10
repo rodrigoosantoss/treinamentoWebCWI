@@ -1,0 +1,32 @@
+package tests;
+
+import com.sun.xml.internal.ws.policy.AssertionSet;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import tests.pageObject.CategoryPage;
+import tests.pageObject.DetailProduct;
+import tests.pageObject.HomePage;
+
+public class CommerceFlowTest extends BaseTest {
+
+    @Test
+    public void acessarDetalheProduto(){
+        //instanciar
+        HomePage homePage = new HomePage(); //instanciar
+        CategoryPage categoryPage = new CategoryPage(); //instanciar
+        DetailProduct detailProduct = new DetailProduct();
+
+        homePage.clickTShirts();
+        //texto da tela
+        Assert.assertEquals("T-SHIRTS", categoryPage.getTextTitleCategory());
+
+        String cat = categoryPage.productName().getText();
+
+        categoryPage.clickProductName();
+
+        Assert.assertEquals(detailProduct.productName().getText(),cat);
+
+
+
+        }
+}
